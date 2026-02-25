@@ -1,0 +1,13 @@
+def test_toString():
+    text = HW.toString("ExampleText.txt")
+    # robust to final newline or not
+    assert text.splitlines() == [
+        "Here's the text",
+        "Next line",
+        "longest line",]
+
+def test_longestLine():
+    assert HW.longestLine("ExampleText.txt") == "longest line"
+
+def test_toBinary():
+    assert HW.toBinary("Bits.txt") == ["01101001", "00101010", "1010"]
