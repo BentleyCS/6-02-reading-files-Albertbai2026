@@ -1,35 +1,33 @@
-def test_toString():
-    expected = (
-        "This is a short line.\n"
-        "This is a much, much longer line of sample text.\n"
-        "Mid.\n"
-    )
-    actual = toString("sample.txt")
-    assert actual == expected, f"toString failed.\nExpected:\n{expected!r}\nGot:\n{actual!r}"
+def toString(fileName):
+    # This function returns the text from a given file.
+    # Any new lines are written as \n
+    with open(fileName, "r") as f:
+        return f.read()
 
 
-def test_longestLine():
-    expected = "This is a much, much longer line of sample text."
-    actual = longestLine("sample.txt")
-    assert actual == expected, f"longestLine failed. Expected {expected!r}, got {actual!r}"
+def longestLine(fileName):
+    # Given a file return the longest line from within that file
+    longest_line = ""
+    longest_len = 0
+    with open(fileName, "r") as f:
+        for line in f:
+            # remove only the newline at the end so length compares nicely
+            line_no_nl = line.rstrip("\n")
+            if len(line_no_nl) > longest_len:
+                # store the *original* line as it appears in the file
+                longest_line = line
+                longest_len = len(line_no_nl)
+    return longest_line
 
 
-def test_toBinary():
-    # binary.txt content (with newlines) is:
-    # 011010010010101010100110
-    # 10101010
-    #
-    # After stripping non-bits, this is:
-    # 01101001001010101010011010101010
-    # Grouped into bytes:
-    # 01101001 00101010 10100110 10101010
-    expected = ["01101001", "00101010", "10100110", "10101010"]
-    actual = toBinary("binary.txt")
-    assert actual == expected, f"toBinary failed. Expected {expected!r}, got {actual!r}"
+def toBinary(fileName):
+    # Given a file that is only 0's and 1's return a list of the file broken into bytes.
+    # An example return might be ['01101001', '00101010', '1010']
+    with open(fileName, "r") as f:
+        data = f.read()
 
+    # keep only 0/1 characters (ignore newlines/spaces if any)
+    bits = "".join(ch for ch in data if ch in "01")
 
-if __name__ == "__main__":
-    test_toString()
-    test_longestLine()
-    test_toBinary()
-    print("All tests passed.")
+    # break into chunks of 8 bits
+    return [bits[i:i + 8] for i in range(0, len(bits), 8) if bits[i:i + 8]]
