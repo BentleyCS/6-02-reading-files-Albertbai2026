@@ -1,13 +1,35 @@
 def test_toString():
-    text = HW.toString("ExampleText.txt")
-    # robust to final newline or not
-    assert text.splitlines() == [
-        "Here's the text",
-        "Next line",
-        "longest line",]
+    expected = (
+        "This is a short line.\n"
+        "This is a much, much longer line of sample text.\n"
+        "Mid.\n"
+    )
+    actual = toString("sample.txt")
+    assert actual == expected, f"toString failed.\nExpected:\n{expected!r}\nGot:\n{actual!r}"
+
 
 def test_longestLine():
-    assert HW.longestLine("ExampleText.txt") == "longest line"
+    expected = "This is a much, much longer line of sample text."
+    actual = longestLine("sample.txt")
+    assert actual == expected, f"longestLine failed. Expected {expected!r}, got {actual!r}"
+
 
 def test_toBinary():
-    assert HW.toBinary("Bits.txt") == ["01101001", "00101010", "1010"]
+    # binary.txt content (with newlines) is:
+    # 011010010010101010100110
+    # 10101010
+    #
+    # After stripping non-bits, this is:
+    # 01101001001010101010011010101010
+    # Grouped into bytes:
+    # 01101001 00101010 10100110 10101010
+    expected = ["01101001", "00101010", "10100110", "10101010"]
+    actual = toBinary("binary.txt")
+    assert actual == expected, f"toBinary failed. Expected {expected!r}, got {actual!r}"
+
+
+if __name__ == "__main__":
+    test_toString()
+    test_longestLine()
+    test_toBinary()
+    print("All tests passed.")
