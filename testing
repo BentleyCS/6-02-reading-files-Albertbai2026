@@ -1,0 +1,36 @@
+def toString(
+6-02-reading-files-Albertbai2026):
+    # This function returns the text from a given file.
+    # Any new lines are written as \n
+    with open(fileName, "r") as f:
+        return f.read()
+
+
+def longestLine(
+6-02-reading-files-Albertbai2026):
+    # Given a file return the longest line from within that file
+    longest_line = ""
+    longest_len = 0
+    with open(fileName, "r") as f:
+        for line in f:
+            # remove only the newline at the end so length compares nicely
+            line_no_nl = line.rstrip("\n")
+            if len(line_no_nl) > longest_len:
+                # store the original line (exactly as in file)
+                longest_line = line
+                longest_len = len(line_no_nl)
+    return longest_line
+
+
+def toBinary(
+6-02-reading-files-Albertbai2026):
+    # Given a file that is only 0's and 1's return a list of the file broken into bytes.
+    # An example return might be ['01101001', '00101010', '1010']
+    with open(fileName, "r") as f:
+        data = f.read()
+
+    # keep only 0/1 characters (ignore newlines/spaces if any)
+    bits = "".join(ch for ch in data if ch in "01")
+
+    # break into chunks of 8 bits
+    return [bits[i:i + 8] for i in range(0, len(bits), 8) if bits[i:i + 8]]
