@@ -1,17 +1,17 @@
 # You must make and submit your own test file and txt file with this assignment.
 
-def toString(fileName):
+def toString(string):
     # This function returns the text from a given file.
     # Any new lines are written as \n
-    with open(fileName, "r") as f:
+    with open(string, "r") as f:
         return f.read()
 
 
-def longestLine(fileName):
+def longestLine():
     # Given a file return the longest line from within that file
     longest_line = ""
     longest_len = 0
-    with open(fileName, "r") as f:
+    with open(longestline, "r") as f:
         for line in f:
             # remove only the newline at the end so length compares nicely
             line_no_nl = line.rstrip("\n")
@@ -22,10 +22,10 @@ def longestLine(fileName):
     return longest_line
 
 
-def toBinary(fileName):
+def toBinary(binary):
     # Given a file that is only 0's and 1's return a list of the file broken into bytes.
     # An example return might be ['01101001', '00101010', '1010']
-    with open(fileName, "r") as f:
+    with open(binary, "r") as f:
         data = f.read()
 
     # keep only 0/1 characters (ignore newlines/spaces if any)
