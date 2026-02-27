@@ -1,11 +1,4 @@
-def make_temp_file(name, contents):
-    """Create a temporary text file in the current directory and return its name."""
-    with open(name, "w", encoding="utf-8") as f:
-        f.write(contents)
-    return name
-
-
-def test_toString():
+def test_toString(String):
     fname = make_temp_file(
         "sample_test.txt",
         "This is a short line.\n"
@@ -20,7 +13,7 @@ def test_toString():
     )
 
 
-def test_longestLine():
+def test_longestLine(Longest):
     fname = make_temp_file(
         "sample_longest.txt",
         "short\n"
@@ -32,7 +25,7 @@ def test_longestLine():
     assert result == "this is definitely the longest line here\n"
 
 
-def test_toBinary():
+def test_toBinary(Binary):
     fname = make_temp_file(
         "sample_binary.txt",
         "011010010010101010100110\n"
