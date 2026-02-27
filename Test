@@ -1,33 +1,44 @@
-def toString(fileName):
-    # This function returns the text from a given file.
-    # Any new lines are written as \n
-    with open(fileName, "r") as f:
-        return f.read()
+def make_temp_file(name, contents):
+    """Create a temporary text file in the current directory and return its name."""
+    with open(name, "w", encoding="utf-8") as f:
+        f.write(contents)
+    return name
 
 
-def longestLine(fileName):
-    # Given a file return the longest line from within that file
-    longest_line = ""
-    longest_len = 0
-    with open(fileName, "r") as f:
-        for line in f:
-            # remove only the newline at the end so length compares nicely
-            line_no_nl = line.rstrip("\n")
-            if len(line_no_nl) > longest_len:
-                # store the *original* line as it appears in the file
-                longest_line = line
-                longest_len = len(line_no_nl)
-    return longest_line
+def test_toString():
+    fname = make_temp_file(
+        "sample_test.txt",
+        "This is a short line.\n"
+        "This is a much, much longer line of sample text.\n"
+        "Mid.\n"
+    )
+    result = toString(fname)
+    assert result == (
+        "This is a short line.\n"
+        "This is a much, much longer line of sample text.\n"
+        "Mid.\n"
+    )
 
 
-def toBinary(fileName):
-    # Given a file that is only 0's and 1's return a list of the file broken into bytes.
-    # An example return might be ['01101001', '00101010', '1010']
-    with open(fileName, "r") as f:
-        data = f.read()
+def test_longestLine():
+    fname = make_temp_file(
+        "sample_longest.txt",
+        "short\n"
+        "this is definitely the longest line here\n"
+        "mid\n"
+    )
+    result = longestLine(fname)
+    # longestLine should return the line exactly as in the file (including newline)
+    assert result == "this is definitely the longest line here\n"
 
-    # keep only 0/1 characters (ignore newlines/spaces if any)
-    bits = "".join(ch for ch in data if ch in "01")
 
-    # break into chunks of 8 bits
-    return [bits[i:i + 8] for i in range(0, len(bits), 8) if bits[i:i + 8]]
+def test_toBinary():
+    fname = make_temp_file(
+        "sample_binary.txt",
+        "011010010010101010100110\n"
+        "10101010\n"
+    )
+    result = toBinary(fname)
+    # Combined bits: 01101001001010101010011010101010
+    # Grouped into bytes: 01101001 00101010 10100110 10101010
+    assert result == ["01101001", "00101010", "10100110", "10101010"]
