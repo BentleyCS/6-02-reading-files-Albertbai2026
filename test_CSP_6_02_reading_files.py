@@ -1,3 +1,5 @@
+from CSP_6_02_reading_files import toString, longestLine, toBinary
+
 def test_toString(String):
     fname = make_temp_file(
         "sample_test.txt",
