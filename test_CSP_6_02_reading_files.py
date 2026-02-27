@@ -1,6 +1,13 @@
 from CSP_6_02_reading_files import toString, longestLine, toBinary
 
-def test_toString(String):
+
+def make_temp_file(name, contents):
+    with open(name, "w") as f:
+        f.write(contents)
+    return name
+
+
+def test_toString():
     fname = make_temp_file(
         "sample_test.txt",
         "This is a short line.\n"
@@ -15,7 +22,7 @@ def test_toString(String):
     )
 
 
-def test_longestLine(Longest):
+def test_longestLine():
     fname = make_temp_file(
         "sample_longest.txt",
         "short\n"
@@ -27,7 +34,7 @@ def test_longestLine(Longest):
     assert result == "this is definitely the longest line here\n"
 
 
-def test_toBinary(Binary):
+def test_toBinary():
     fname = make_temp_file(
         "sample_binary.txt",
         "011010010010101010100110\n"
